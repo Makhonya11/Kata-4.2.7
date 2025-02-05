@@ -1,0 +1,73 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+    width: 660px;
+    background-color:#C4C4C4;
+    text-align: center; 
+    padding-top: 60px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    margin: 100px auto 0 auto;
+  }
+  .search-repos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .repo-name {
+    width:500px;
+    height:65px;
+    font-size:48px;
+    padding-left: 13px;
+  }
+  
+  .autocomplete-list__item {
+    width: 500px;
+    border:2px solid #000000;
+    text-align: left;
+    padding-left: 13px;
+    list-style:none;
+    font-size:30px;
+  }
+  .autocomplete-list__item:hover {
+    background-color: #65CDF9;
+  }
+
+  .repos-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    
+  }
+  .repos-list__item {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width:500px;
+    min-height:100px;
+    background-color: #E27BEB;
+    padding:8px 16px;
+    border: 1px solid #000000;
+    font-size: 24px;
+    list-style:none;
+  }                            
+  .repo-info {
+    text-align: left;
+  }
+  
+  .delete-repo {
+    height: 45px;
+    width:40px;
+    background: url(img/Vector\ 7.png) 50% 50% /38px 42px no-repeat,
+                url(img/Vector\ 8.png) 50% 50% /38px 42px no-repeat;
+    border:none;
+  } 
+  .delete-repo:hover {
+    background-color: #65CDF9;
+  }
