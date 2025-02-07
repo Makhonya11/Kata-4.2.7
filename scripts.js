@@ -4,8 +4,8 @@ let autocompleteListItem = document.querySelector('.autocomplete-list__item')
 const repoListWrapper = document.querySelector('.repos-list-wrapper')
 let resultItems
 
-async function searchRepo () {
-    if (repoNameValue.value) {
+async function searchRepo (input) {
+    if (input.value) {
         clearRepoList ()
         return await fetch(`https://api.github.com/search/repositories?q=${repoNameValue.value}&per_page=5`).then(res => {
           if (res.ok) {
@@ -28,17 +28,33 @@ function createRepoListItem (item) {
     repoListItem.classList.add('repos-list__item')
     const currentRepo = resultItems.find(elem => elem.name === item)
     
-    repoListItem.insertAdjacentHTML('afterbegin', `<div class="repo-info">
-                                                   <p>Name: ${currentRepo.name}</p>
-                                                   <p>Owner: ${currentRepo.owner.login}</p>
-                                                   <p>Stars: ${currentRepo.stargazers_count}</p>
-                                                   </div><button class="delete-repo"></button>`)
+    const repoInfo = document.createElement("div")
+    repoInfo.classList.add('repo-info')
+    const name = document.createElement("p")
+    name.textContent = `Name: ${currentRepo.name}`
+    const owner = document.createElement("p")
+    owner.textContent = `Owner: ${currentRepo.owner.login}`
+    const stars = document.createElement("p")
+    stars.textContent = `Stars: ${currentRepo.stargazers_count}`
+    const deleteButton = document.createElement("button")
+    deleteButton.classList.add('delete-repo')
+
+    
+    repoInfo.append(name, owner, stars)
+    repoListItem.append(repoInfo, deleteButton)
     repoListWrapper.append(repoListItem);
+     
 }
 
 function createAutocompleteListItem (item) {
+  
+  
+  const autocompleteListItem = document.createElement("li")
+  autocompleteListItem.classList.add('autocomplete-list__item')
+  autocompleteListItem.textContent = `${item.name}`
+  autocompleteList.append(autocompleteListItem)
+
     
-     autocompleteList.insertAdjacentHTML('afterbegin', `<li class="autocomplete-list__item">${item.name}</li>`)
 }
 
 function clearRepoList () {
@@ -47,16 +63,21 @@ function clearRepoList () {
 
 function debounce (fn, ms) {
   let timeoutId
-  return () => {
+  return (...args) => {
     clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => fn(), ms)
+    timeoutId = setTimeout(() => fn(...args), ms)
   }
 }
 const searchRepos = debounce(searchRepo, 500)
-repoNameValue.addEventListener('keyup', searchRepos)
+repoNameValue.addEventListener('input', (event) => {
+  searchRepos (event.target)
+  
+} )
 
 autocompleteList.addEventListener('click', (event) => {
     createRepoListItem (event.target.textContent)
+    clearRepoList ()
+    repoNameValue.value = ''
     }
 )
 

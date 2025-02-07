@@ -45,6 +45,7 @@
     margin-top: 60px;
     
   }
+  
   .repos-list__item {
     display:flex;
     justify-content: space-between;
@@ -60,7 +61,9 @@
   .repo-info {
     text-align: left;
   }
-  
+  .repo-info p {
+    display: block;
+  }
   .delete-repo {
     height: 45px;
     width:40px;
@@ -71,3 +74,4 @@
   .delete-repo:hover {
     background-color: #65CDF9;
   }
+  
